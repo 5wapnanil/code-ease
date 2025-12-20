@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" id="nav-brand">Portfolio</a>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html#home" class="nav-link">Home</a></li>
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#education" class="nav-link">Education</a></li>
+                <li><a href="index.html#skills" class="nav-link">Skills</a></li>
+                <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                <li><a href="messages.html" class="nav-link active">Messages</a></li>
+            </ul>
+            <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Toggle navigation" aria-controls="nav-menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Messages Section -->
+    <section class="messages-section">
+        <div class="container">
+            <h1 class="page-title">Contact Messages</h1>
+            <div class="messages-header">
+                <p class="messages-subtitle">All messages received through the contact form</p>
+                <button class="btn btn-primary" id="refresh-btn">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+            <div id="loading" class="loading">
+                <i class="fas fa-spinner fa-spin"></i> Loading messages...
+            </div>
+            <div id="messages-container" class="messages-container">
+                <!-- Messages will be loaded here -->
+            </div>
+            <div id="no-messages" class="no-messages" style="display: none;">
+                <i class="fas fa-inbox"></i>
+                <p>No messages yet. Check back later!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Portfolio</h3>
+                    <p id="footer-text">Creating amazing web experiences with passion and dedication.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html#home">Home</a></li>
+                        <li><a href="index.html#about">About</a></li>
+                        <li><a href="index.html#education">Education</a></li>
+                        <li><a href="index.html#skills">Skills</a></li>
+                        <li><a href="index.html#projects">Projects</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                        <li><a href="messages.html">Messages</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Social Media</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link" id="social-github"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link" id="social-linkedin"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link" id="social-twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" id="social-instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" id="social-facebook"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p id="footer-copyright">&copy; 2024 Portfolio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="config.js"></script>
+    <script src="neon-cursor.js"></script>
+    <script src="fluid-cursor.js"></script>
+    <script src="messages.js"></script>
+</body>
+</html>
+
