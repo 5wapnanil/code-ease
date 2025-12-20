@@ -6,22 +6,38 @@
 }
 
 :root {
-    --primary-color: #00f5ff;
-    --secondary-color: #7b2ff7;
-    --accent-color: #ff006e;
-    --neon-blue: #00f5ff;
-    --neon-purple: #7b2ff7;
-    --neon-pink: #ff006e;
-    --text-dark: #e0e0e0;
-    --text-light: #a0a0a0;
-    --bg-dark: #0a0a0f;
-    --bg-darker: #050508;
-    --bg-card: rgba(15, 15, 25, 0.8);
+    /* New Color Palette */
+    --primary-color: #6366f1;      /* Indigo */
+    --primary-light: #818cf8;     /* Lighter Indigo */
+    --primary-dark: #4f46e5;      /* Darker Indigo */
+    --secondary-color: #8b5cf6;   /* Violet */
+    --accent-color: #ec4899;      /* Pink */
+    --accent-light: #f472b6;      /* Lighter Pink */
+    
+    /* Neutrals */
+    --text-dark: #f3f4f6;         /* Light gray for text */
+    --text-muted: #9ca3af;        /* Muted text */
+    --bg-dark: #111827;           /* Dark background */
+    --bg-darker: #0f172a;         /* Darker background */
+    --bg-card: rgba(17, 24, 39, 0.8); /* Card background */
     --bg-glass: rgba(255, 255, 255, 0.05);
-    --border-color: rgba(123, 47, 247, 0.3);
-    --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
-    --shadow-neon: 0 0 20px rgba(0, 245, 255, 0.5), 0 0 40px rgba(123, 47, 247, 0.3);
+    --border-color: rgba(99, 102, 241, 0.3);
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    --gradient-accent: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+    
+    /* Shadows */
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-neon: 0 0 20px rgba(99, 102, 241, 0.5);
+    
+    /* Legacy variables for compatibility */
+    --neon-blue: var(--primary-color);
+    --neon-purple: var(--secondary-color);
+    --neon-pink: var(--accent-color);
+    --text-light: var(--text-muted);
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
@@ -60,11 +76,12 @@ body::before {
     width: 100%;
     height: 100%;
     background: 
-        radial-gradient(circle at 20% 50%, rgba(123, 47, 247, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(0, 245, 255, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 40% 20%, rgba(255, 0, 110, 0.1) 0%, transparent 50%);
+        radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
+        linear-gradient(to bottom, var(--bg-darker), var(--bg-dark));
     z-index: -1;
-    animation: backgroundShift 20s ease infinite;
+    animation: backgroundShift 25s ease infinite;
+    opacity: 0.8;
 }
 
 section[id] {
@@ -88,10 +105,11 @@ section[id] {
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(10, 10, 15, 0.8);
-    backdrop-filter: blur(20px) saturate(180%);
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border-color);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 245, 255, 0.1);
+    box-shadow: var(--shadow-md);
     z-index: 1000;
     transition: all 0.3s ease;
 }
@@ -149,9 +167,9 @@ section[id] {
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
-    box-shadow: 0 0 10px var(--neon-blue);
-    transition: width 0.3s ease;
+    background: var(--gradient-primary);
+    transition: width 0.3s ease, opacity 0.3s ease;
+    opacity: 0.8;
 }
 
 .nav-link:hover,
@@ -188,11 +206,12 @@ section[id] {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(10, 10, 15, 0.95) 0%, rgba(15, 15, 25, 0.98) 100%);
-    color: white;
+    background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
+    color: var(--text-dark);
     position: relative;
     overflow: hidden;
-    padding-top: 80px;
+    padding: 100px 20px 60px;
+    isolation: isolate;
 }
 
 .hero::before {
@@ -313,12 +332,15 @@ section[id] {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    background: var(--gradient-primary);
     color: white;
     border: 2px solid transparent;
-    box-shadow: 0 0 20px rgba(0, 245, 255, 0.4), inset 0 0 20px rgba(123, 47, 247, 0.2);
+    box-shadow: var(--shadow-md);
     position: relative;
     overflow: hidden;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
 }
 
 .btn-primary::before {
@@ -344,11 +366,14 @@ section[id] {
 
 .btn-secondary {
     background: transparent;
-    color: var(--neon-blue);
-    border: 2px solid var(--neon-blue);
-    box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.2);
     position: relative;
     overflow: hidden;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
 }
 
 .btn-secondary::before {
@@ -383,17 +408,17 @@ section[id] {
     width: 300px;
     height: 300px;
     border-radius: 50%;
-    background: rgba(0, 245, 255, 0.1);
+    background: rgba(99, 102, 241, 0.1);
     backdrop-filter: blur(20px);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 8rem;
-    border: 3px solid var(--neon-blue);
+    border: 3px solid var(--primary-color);
     box-shadow: 
-        0 0 40px rgba(0, 245, 255, 0.5),
-        0 0 80px rgba(123, 47, 247, 0.3),
-        inset 0 0 40px rgba(0, 245, 255, 0.1);
+        0 0 40px rgba(99, 102, 241, 0.3),
+        0 0 80px rgba(139, 92, 246, 0.2),
+        inset 0 0 40px rgba(99, 102, 241, 0.1);
     animation: float 3s ease-in-out infinite, rotateBorder 8s linear infinite;
     position: relative;
     z-index: 1;
@@ -407,7 +432,7 @@ section[id] {
     right: -5px;
     bottom: -5px;
     border-radius: 50%;
-    background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-pink), var(--neon-blue));
+    background: var(--gradient-primary);
     z-index: -1;
     animation: rotateBorder 8s linear infinite;
     opacity: 0.5;
