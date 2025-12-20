@@ -7,12 +7,40 @@ require('dotenv').config();
 
 const app = express();
 
-// Middleware
-app.use(cors({
-  origin: '*',
+// CORS Configuration
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5000',
+  'https://*.vercel.app',
+  'https://swapnanil-ghosh.vercel.app'
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    // Check if the origin is in the allowed list or is a subdomain of vercel.app
+    if (
+      allowedOrigins.some(allowedOrigin => 
+        origin === allowedOrigin || 
+        origin.endsWith('.vercel.app')
+      )
+    ) {
+      callback(null, true);
+    } else {
+      console.log('Blocked by CORS:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  credentials: true,
+  optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+// Apply CORS with the above configuration
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../frontend')));
@@ -27,12 +55,23 @@ app.use((req, res, next) => {
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio';
 
 console.log('Attempting to connect to MongoDB...');
-console.log('Connection URI:', MONGODB_URI.replace(/\/\/.*@/, '//***:***@')); // Hide credentials in logs
+// Log the connection string with credentials hidden
+console.log('Connecting to MongoDB at:', 
+  MONGODB_URI.replace(/mongodb:\/\/([^:]+):[^@]+@/, 'mongodb://$1:******@')
+);
 
-mongoose.connect(MONGODB_URI, {
-  serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+// MongoDB connection options
+const mongoOptions = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 5000, // 5 seconds timeout
   socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
-})
+  retryWrites: true,
+  w: 'majority'
+};
+
+// Connect to MongoDB
+mongoose.connect(MONGODB_URI, mongoOptions)
 .then(() => {
   console.log('✓ MongoDB Connected Successfully!');
   console.log('Database:', mongoose.connection.db.databaseName);
