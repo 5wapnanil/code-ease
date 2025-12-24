@@ -4,6 +4,7 @@
   "description": "Portfolio website with contact form backend",
   "private": true,
   "scripts": {
+    "build": "node vercel-build.js",
     "vercel-build": "node vercel-build.js",
     "start": "cd backend && node server.js",
     "dev": "cd backend && npm run dev"
